@@ -28,12 +28,12 @@ public class DBHelper extends SQLiteOpenHelper {
 			ContentValues values = new ContentValues();
 			values.put("lat", 50);
 			values.put("long", 51);
-			this.db.update(TABLE_NAME,  values, null, null);
+			this.db.update(TABLE_NAME,  values, "1", null);
 		}
 		public Cursor get() {
 			Cursor c = this.db.query(
 					TABLE_NAME, 
-					new String[] { "lat", "long" }, 
+					new String[] { "nwlat", "nwlong" , "swlat" , "swlong", "nelat", "nelong", "selat", "selong" }, 
 					null,
 					null,
 					null,
@@ -43,15 +43,19 @@ public class DBHelper extends SQLiteOpenHelper {
 			return c;
 		}
 		
-		
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(
-					"create table " + TABLE_NAME + " (_id integer primary key autoincrement, lat decimal not null, long decimal not null)"
-					);
+					"if not exists create table " + TABLE_NAME + " (_id integer primary key autoincrement, nwlat decimal not null, nwlong decimal not null, swlat decimal not null, swlong decimal not null, nelat decimal not null, nelong decimal not null, selat decimal not null, selong decimal not null)");
 			ContentValues values = new ContentValues();
-			values.put("lat",  50);
-			values.put("long", 51);
+			values.put("nwlat",  40.802489);
+			values.put("nwlong", -96.605456);
+			values.put("swlat",  40.801572);
+			values.put("swlong", -96.605456);
+			values.put("nelat",  40.802489);
+			values.put("nelong", -96.604525);
+			values.put("selat",  40.801572);
+			values.put("selong", -96.604525);
 			db.insert(TABLE_NAME, null, values);
 		}
 

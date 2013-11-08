@@ -100,4 +100,14 @@
         android:layout_below="@+id/textView4"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <ToggleButton
+        android:id="@+id/toggleService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView3"
+        android:textOn="Service On"
+        android:textOff="Service Off"
+        android:layout_below="@+id/textLong"
+        android:onClick="onToggleService" />
+
 </RelativeLayout>
