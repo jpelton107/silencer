@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -62,8 +63,10 @@ public class GPSService extends Service {
 		        Double swlong = row.getDouble(row.getColumnIndex("swlong"));
 		        Double selong = row.getDouble(row.getColumnIndex("selong"));
 		        
-		        if ((Long > swlong && Long < selong && Lat > swlat && Lat < nelat)) {
+		        if (Long > swlong && Long < selong && Lat > swlat && Lat < nelat) {
 		        	Log.i("Service", "Silenece Phone!");
+		        	AudioManager am = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+		        	am.setRingerMode(AudioManager.RINGER_MODE_SILENT);		        	
 		        }
 			}
 			
