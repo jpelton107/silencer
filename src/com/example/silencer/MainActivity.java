@@ -10,9 +10,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -20,10 +22,11 @@ import com.example.silencer.DBHelper;
 
 public class MainActivity extends Activity {
 	
-	TextView textLat;
-	TextView textLong;
 	TextView currentLat;
 	TextView currentLong;
+	TextView scheduleLabel;
+	EditText startTime;
+	EditText endTime;
 	DBHelper DB;
 	Button btnSetLocation;
 
@@ -31,20 +34,22 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        textLat = (TextView)findViewById(R.id.textLat);
-        textLong = (TextView)findViewById(R.id.textLong);
+
         currentLat = (TextView)findViewById(R.id.currentLat);
         currentLong = (TextView)findViewById(R.id.currentLong);
-        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        LocationListener ll = new mylocationlistener();
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+        
+        scheduleLabel = (TextView)findViewById(R.id.scheduleLabel);
+        
+        startTime = (EditText)findViewById(R.id.startTime);
+        endTime = (EditText)findViewById(R.id.endTime);
         
         DB = new DBHelper(this);
-        setSavedLocation();
+        setCurrentSchedule();
        
     }
+    
         
+    // TODO: change from toggle, to two button setup
     public void onToggleService(View view) {
     	boolean on = ((ToggleButton) view).isChecked();
     	
@@ -55,59 +60,34 @@ public class MainActivity extends Activity {
     	}
     }
     
-    private void setSavedLocation() {
+    private void setCurrentSchedule() {
         // set previous lat/long
-        Cursor row = DB.get();
+    	Cursor row = DB.getSchedule();
+       
+        String slat = row.getString(row.getColumnIndex("slat"));
+        String nlat = row.getString(row.getColumnIndex("nlat"));
+        String wlong = row.getString(row.getColumnIndex("wlong"));
+        String elong = row.getString(row.getColumnIndex("elong"));
+        currentLat.setText(nlat + ", " + slat);
+        currentLong.setText(wlong + ", " + elong); 
         
-        String nwlat = row.getString(row.getColumnIndex("nwlat"));
-        String selat = row.getString(row.getColumnIndex("selat"));
+        String start = row.getString(row.getColumnIndex("start_time"));
+        String end = row.getString(row.getColumnIndex("end_time"));
+        Integer day = row.getInt(row.getColumnIndex("day"));
+        String label = row.getString(row.getColumnIndex("label"));
         
-        String nwlong = row.getString(row.getColumnIndex("nwlong"));
-        String selong = row.getString(row.getColumnIndex("selong"));
-        currentLat.setText(nwlat + ", " + selat);
-        currentLong.setText(nwlong + ", " + selong); 
+        scheduleLabel.setText(label);
+        startTime.setText(start);
+        endTime.setText(end);
+        
+        
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    
-    class mylocationlistener implements LocationListener {
-
-        @Override
-        public void onLocationChanged(Location arg0) {
-                if(arg0 != null)
-                {
-                        double pLong = arg0.getLongitude();
-                        double pLat = arg0.getLatitude();
-                        
-                        textLat.setText(Double.toString(pLat));
-                        textLong.setText(Double.toString(pLong));
-                        
-                }
-                // TODO Auto-generated method stub
-                
-        }
-
-        @Override
-        public void onProviderDisabled(String arg0) {
-                // TODO Auto-generated method stub
-                
-        }
-
-        @Override
-        public void onProviderEnabled(String arg0) {
-                // TODO Auto-generated method stub
-                
-        }
-
-        @Override
-        public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-                // TODO Auto-generated method stub
-                
-        }
+    	MenuInflater inflater = getMenuInflater();
+    	inflater.inflate(R.menu.main, menu);        
+        return super.onCreateOptionsMenu(menu);
     }
 }

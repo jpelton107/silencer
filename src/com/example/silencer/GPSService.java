@@ -55,15 +55,14 @@ public class GPSService extends Service {
 				Lat = arg0.getLatitude();
 				Log.i("Location changed:", Double.toString(Long) + " : " + Double.toString(Lat));
 		        DBHelper DB = new DBHelper(getApplicationContext());
-		        Cursor row = DB.get();
-		        
+		        Cursor row = DB.getLocation();
 
-		        Double nelat = row.getDouble(row.getColumnIndex("nelat"));
-		        Double swlat = row.getDouble(row.getColumnIndex("swlat"));
-		        Double swlong = row.getDouble(row.getColumnIndex("swlong"));
-		        Double selong = row.getDouble(row.getColumnIndex("selong"));
+		        Double nlat = row.getDouble(row.getColumnIndex("nlat"));
+		        Double slat = row.getDouble(row.getColumnIndex("slat"));
+		        Double wlong = row.getDouble(row.getColumnIndex("wlong"));
+		        Double elong = row.getDouble(row.getColumnIndex("elong"));
 		        
-		        if (Long > swlong && Long < selong && Lat > swlat && Lat < nelat) {
+		        if (Long > wlong && Long < elong && Lat > slat && Lat < nlat) {
 		        	Log.i("Service", "Silenece Phone!");
 		        	AudioManager am = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 		        	am.setRingerMode(AudioManager.RINGER_MODE_SILENT);		        	
