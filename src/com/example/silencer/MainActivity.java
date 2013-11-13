@@ -1,3 +1,13 @@
+/*
+ * Need to setup 3 activities:
+ *  +----------------------+
+ * 	+ display all schedules|
+ *  +----------------------+
+ *  - add new schedule
+ *  - edit already existing schedule
+ * 
+ */
+
 package com.example.silencer;
 
 import android.location.Location;
@@ -11,6 +21,7 @@ import android.database.Cursor;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -89,5 +100,16 @@ public class MainActivity extends Activity {
     	MenuInflater inflater = getMenuInflater();
     	inflater.inflate(R.menu.main, menu);        
         return super.onCreateOptionsMenu(menu);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch(item.getItemId()) {
+    	case R.id.action_new:
+    		Intent in = new Intent(MainActivity.this, NewActivity.class);
+    		startActivity(in);
+    	default:
+    		return super.onOptionsItemSelected(item);
+    	}    	
     }
 }
