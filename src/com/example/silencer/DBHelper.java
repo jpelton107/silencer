@@ -23,6 +23,10 @@ public class DBHelper extends SQLiteOpenHelper {
 			values.put(type, coord);
 			this.db.update(COORD_TABLE_NAME, values, null, null);
 		}
+		
+		public void addSchedule(String label, String start_time, String end_time, Integer day) {
+			
+		}
 
 		public Cursor getLocation() {
 			Cursor c = this.db.query(

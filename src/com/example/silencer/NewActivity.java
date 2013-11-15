@@ -1,17 +1,33 @@
 package com.example.silencer;
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class NewActivity extends Activity {
+public class NewActivity extends Activity implements OnItemClickListener {
 	private TextView txtStart;
 	private TextView txtEnd;
+	private TextView txtDaysOfWeek;
+	private Dialog listDialog;
+	private String[] days;
+	private HashMap<Integer, Boolean> daysChecked = new HashMap<Integer, Boolean>();
+	private String dayString; 
 	
 	private int sMinute;
 	private int sHour;
@@ -29,6 +45,71 @@ public class NewActivity extends Activity {
 		
 		txtStart = (TextView) findViewById(R.id.txtStart);
 		txtEnd = (TextView) findViewById(R.id.txtEnd);
+				
+		days = getApplicationContext().getResources().getStringArray(R.array.daysOfWeek);
+	}
+	
+	public void cancelNewSchedule()
+	{
+		Intent in = new Intent(NewActivity.this, MainActivity.class);
+		startActivity(in);
+	}
+	
+	public void submitNewSchedule()
+	{
+		TextView label = (TextView) findViewById(R.id.newLabel);
+		TextView startTime = (TextView) findViewById(R.id.txtStart);
+		TextView endTime = (TextView) findViewById(R.id.txtEnd);
+		
+		DBHelper DB = new DBHelper(getApplicationContext());
+		
+		
+	}
+	
+	public void initDaysOfWeekPopup(View view) {
+		listDialog = new Dialog(this);
+		listDialog.setTitle("Select Day of Week");
+		LayoutInflater li = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = li.inflate(R.layout.popup_listview, null, false);
+		listDialog.setContentView(v);
+		listDialog.setCancelable(true);
+		
+		ListView listView = (ListView) listDialog.findViewById(R.id.listView);
+		listView.setOnItemClickListener((OnItemClickListener) this);
+		listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, days));
+		
+		listDialog.show();
+		
+	}
+	
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		int id = arg1.getId();
+		Log.i("ID", Integer.toString(id));
+		if (id == R.id.btnOK) {
+			daysFinish();
+		} else {
+			CheckedTextView item = (CheckedTextView) arg1;
+			item.toggle();
+			if (item.isChecked()) {
+				daysChecked.put(arg2, true);
+			} else {
+				daysChecked.remove(arg2);
+			}
+		}
+	}
+	
+	public void daysFinish()
+	{
+		Log.i("HEre", "We are hgere");
+		for(int i = 0; i < 7; i++) {
+			Boolean dayIsChecked = daysChecked.get(i);
+			if (dayIsChecked == true) {
+				dayString += days[i].substring(0, 3) + ", ";
+			}
+		}
+		dayString = dayString.substring(0, dayString.length()-2);
+		txtDaysOfWeek.setText(dayString);
+		listDialog.dismiss();
 	}
 	
 	@SuppressWarnings("deprecation")

@@ -57,7 +57,7 @@
 	        android:textAppearance="?android:attr/textAppearanceMedium" />
 	
 	    <TextView
-	        android:id="@+id/textView1"
+	        android:id="@+id/listText"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/currentLat"
@@ -69,8 +69,8 @@
 	        android:id="@+id/startTime"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/textView1"
-	        android:layout_below="@+id/textView1"
+	        android:layout_alignLeft="@+id/listText"
+	        android:layout_below="@+id/listText"
 	        android:ems="10"
 	        android:inputType="time" >
 	

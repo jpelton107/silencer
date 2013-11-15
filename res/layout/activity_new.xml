@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/listText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Schedule Label"
@@ -37,7 +37,7 @@
 	        android:id="@+id/txtStart"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text=""
+	        android:text="12:00PM"
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
 	    
     </LinearLayout>
@@ -60,11 +60,11 @@
 	        android:id="@+id/txtEnd"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text=""
+	        android:text="12:30PM"
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
 	    
     </LinearLayout>
-
+<!--
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -92,17 +92,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Set" />
+-->
+
+   	<TextView
+   	    android:id="@+id/textView4"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:text="Days"
+   	    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+   	<LinearLayout
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content" >
+
+   		<CheckedTextView
+   		    android:id="@+id/txtDaysOfWeek"
+   		    android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+   		    android:clickable="true"
+   		    android:onClick="initDaysOfWeekPopup"
+   		    android:text="Select" />
+
+   	</LinearLayout>
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="cancelNewSchedule"
         android:text="Cancel" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="submitNewSchedule"
         android:text="Add" />
 
 </LinearLayout>
