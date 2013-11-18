@@ -119,14 +119,14 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="cancelNewSchedule"
+        android:onClick="cancelSchedule"
         android:text="Cancel" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="submitNewSchedule"
+        android:onClick="submitSchedule"
         android:text="Add" />
 
 </LinearLayout>
