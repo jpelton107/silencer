@@ -49,23 +49,6 @@ public class NewActivity extends Activity implements OnItemClickListener {
 		days = getApplicationContext().getResources().getStringArray(R.array.daysOfWeek);
 	}
 	
-	public void cancelNewSchedule()
-	{
-		Intent in = new Intent(NewActivity.this, MainActivity.class);
-		startActivity(in);
-	}
-	
-	public void submitNewSchedule()
-	{
-		TextView label = (TextView) findViewById(R.id.newLabel);
-		TextView startTime = (TextView) findViewById(R.id.txtStart);
-		TextView endTime = (TextView) findViewById(R.id.txtEnd);
-		
-		DBHelper DB = new DBHelper(getApplicationContext());
-		
-		
-	}
-	
 	public void initDaysOfWeekPopup(View view) {
 		listDialog = new Dialog(this);
 		listDialog.setTitle("Select Day of Week");
