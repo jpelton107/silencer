@@ -26,8 +26,8 @@ public class NewActivity extends Activity implements OnItemClickListener {
 	private TextView txtDaysOfWeek;
 	private Dialog listDialog;
 	private String[] days;
-	private HashMap<Integer, Boolean> daysChecked = new HashMap<Integer, Boolean>();
-	private String dayString; 
+	private HashMap<Integer, Boolean> daysChecked;
+	
 	
 	private int sMinute;
 	private int sHour;
@@ -79,35 +79,32 @@ public class NewActivity extends Activity implements OnItemClickListener {
 		listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, days));
 		
 		listDialog.show();
+		daysChecked = new HashMap<Integer, Boolean>();
 		
 	}
 	
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		int id = arg1.getId();
-		Log.i("ID", Integer.toString(id));
-		if (id == R.id.btnOK) {
-			daysFinish();
-		} else {
-			CheckedTextView item = (CheckedTextView) arg1;
+					CheckedTextView item = (CheckedTextView) arg1;
 			item.toggle();
 			if (item.isChecked()) {
 				daysChecked.put(arg2, true);
 			} else {
 				daysChecked.remove(arg2);
 			}
-		}
 	}
 	
-	public void daysFinish()
+	public void daysFinish(View view)
 	{
+		String dayString = "";
 		Log.i("HEre", "We are hgere");
 		for(int i = 0; i < 7; i++) {
 			Boolean dayIsChecked = daysChecked.get(i);
-			if (dayIsChecked == true) {
+			if (dayIsChecked != null) {
 				dayString += days[i].substring(0, 3) + ", ";
 			}
 		}
 		dayString = dayString.substring(0, dayString.length()-2);
+		txtDaysOfWeek = (TextView) findViewById(R.id.txtDaysOfWeek);
 		txtDaysOfWeek.setText(dayString);
 		listDialog.dismiss();
 	}
