@@ -96,7 +96,6 @@ public class NewActivity extends Activity implements OnItemClickListener {
 	public void daysFinish(View view)
 	{
 		String dayString = "";
-		Log.i("HEre", "We are hgere");
 		for(int i = 0; i < 7; i++) {
 			Boolean dayIsChecked = daysChecked.get(i);
 			if (dayIsChecked != null) {
