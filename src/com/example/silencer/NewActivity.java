@@ -149,6 +149,28 @@ public class NewActivity extends Activity implements OnItemClickListener {
 		}
 		return null;
 	}
+	public void cancelSchedule(View view)
+	{
+		Intent in = new Intent(NewActivity.this, MainActivity.class);
+		startActivity(in);
+	}
+	
+	public void submitSchedule(View view)
+	{
+		// get all variable values
+		TextView tvLabel = (TextView) findViewById(R.id.newLabel);
+		String label = tvLabel.getText().toString();
+		TextView tvStart = (TextView) findViewById(R.id.startTime);
+		String start_time = tvStart.getText().toString();
+		TextView tvEnd = (TextView) findViewById(R.id.endTime);
+		String end_time = tvEnd.getText().toString();
+		TextView tvDays = (TextView) findViewById(R.id.txtDaysOfWeek);
+		String daysOfWeek = tvDays.getText().toString();
+		
+		// add values to db
+		DBHelper DB = new DBHelper(this);
+		DB.addSchedule(label, start_time, end_time, daysOfWeek);
+	}
 	
 	private StringBuilder setTime(String startOrEnd) {
 		int hour;
