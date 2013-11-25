@@ -20,7 +20,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class NewActivity extends Activity implements OnItemClickListener {
+public class New extends Activity implements OnItemClickListener {
 	private TextView txtStart;
 	private TextView txtEnd;
 	private TextView txtDaysOfWeek;
@@ -134,7 +134,7 @@ public class NewActivity extends Activity implements OnItemClickListener {
 	}
 	public void cancelSchedule(View view)
 	{
-		Intent in = new Intent(NewActivity.this, MainActivity.class);
+		Intent in = new Intent(New.this, MainActivity.class);
 		startActivity(in);
 	}
 	
