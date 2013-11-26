@@ -52,6 +52,12 @@ public class DBHelper extends SQLiteOpenHelper {
 			return c;
 		}
 		
+		public Cursor getSchedules() {
+			Cursor c = this.db.rawQuery("SELECT schedule.label, schedule.start_time, schedule.end_time, schedule.day, location.nlat, location.slat, location.wlong, location.elong from " + SCHED_TABLE_NAME + " left outer join " + COORD_TABLE_NAME + " on schedule._id=location.schedule_id order by schedule.day, schedule.start_time", null);
+			c.moveToFirst();
+			return c;
+		}
+		
 		
 		@Override
 		

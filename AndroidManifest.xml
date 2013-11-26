@@ -26,8 +26,8 @@
             </intent-filter>
         </activity>
         <service android:name="GPSService"></service>
-        <activity android:name="New"></activity>
-        <activity android:name="Edit"></activity>
+        <activity android:name="New" android:label="New"></activity>
+        <activity android:name="Edit" android:label="Edit"></activity>
     </application>
 
 </manifest>
